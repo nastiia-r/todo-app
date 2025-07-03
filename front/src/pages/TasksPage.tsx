@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getTasks, deleteTask, updateTask } from "../service/toDoService.ts";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import AddTask from "../components/AddTask.tsx";
 
 interface Task {
     id: number;
@@ -100,6 +101,7 @@ function TasksPage() {
                     </li>
                 ))}
             </ul>
+            <AddTask />
         </div>
     );
 }

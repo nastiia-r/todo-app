@@ -82,3 +82,20 @@ export async function updateTask(id: number, taskData: {title: string, descripti
   }
   return data;
 }
+
+export async function createTask(
+  task: { title: string; description: string; status: string },
+  token: string
+) {
+  const res = await fetch(`${API_URL}/tasks`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(task),
+  });
+
+  if (!res.ok) throw new Error("Failed to create task");
+  return res.json();
+}

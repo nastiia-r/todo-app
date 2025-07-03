@@ -37,3 +37,21 @@ export const updateTask = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const createTask = async (req, res) => {
+    try {
+      const { title, description, status } = req.body;
+  
+      const newTask = await Task.create({
+        title,
+        description,
+        status,
+        user_id: req.userId,
+      });
+  
+      res.status(201).json(newTask);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  
