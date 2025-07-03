@@ -44,14 +44,16 @@ function TaskForm({ initialData, onSubmit, onCancel, title = "Task Form" }: Task
                 onChange={handleChange}
             />
             <select name="status" value={form.status} onChange={handleChange}>
-                <option value="todo">To Do</option>
+                <option value="todo">To do</option>
                 <option value="in progress">In Progress</option>
                 <option value="done">Done</option>
             </select>
+            <div className="task-actions">
             <button type="submit">Save</button>
             <button type="button" onClick={onCancel}>
                 Cancel
             </button>
+            </div>
         </form>
     );
 }

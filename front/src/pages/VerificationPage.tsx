@@ -58,7 +58,7 @@ export default function VerificationPage() {
           required
         />
         <button type="submit">{isLogin ? "Login" : "Register"}</button>
-        <div>
+        <div className="auth-form-change">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
           <button type="button" onClick={() => setIsLogin(!isLogin)}>
             {isLogin ? "Register" : "Login"}

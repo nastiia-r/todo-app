@@ -27,41 +27,54 @@ function Filter({ onFilter, onCancel }: FilterProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} >
-      <input
-        type="text"
-        placeholder="Search by title"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <label>
+    <form onSubmit={handleSubmit} className="filter-form">
+      <div className="filter-search">
         <input
-          type="checkbox"
-          checked={statuses.includes("todo")}
-          onChange={() => toggleStatus("todo")}
+          type="text"
+          placeholder="Search by title"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        To Do
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={statuses.includes("in progress")}
-          onChange={() => toggleStatus("in progress")}
-        />
-        In Progress
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={statuses.includes("done")}
-          onChange={() => toggleStatus("done")}
-        />
-        Done
-      </label>
-      <button type="submit">Filter</button>
-      <button type="button" onClick={handleCancel}>
-        Cancel
-      </button>
+      </div>
+
+      <div className="filter-status">
+        <label className="checkbox-wrapper">
+          <input
+            type="checkbox"
+            checked={statuses.includes("todo")}
+            onChange={() => toggleStatus("todo")}
+          />
+          <span>To do</span>
+        </label>
+        <label className="checkbox-wrapper">
+          <input
+            type="checkbox"
+            checked={statuses.includes("in progress")}
+            onChange={() => toggleStatus("in progress")}
+          />
+          <span>In Progress</span>
+        </label>
+        <label className="checkbox-wrapper">
+          <input
+            type="checkbox"
+            checked={statuses.includes("done")}
+            onChange={() => toggleStatus("done")}
+          />
+          <span>Done</span>
+        </label>
+      </div>
+
+      <div className="filter-buttons">
+        <button type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+          Filter</button>
+        <button type="button" onClick={handleCancel}>
+          Clean
+        </button>
+      </div>
+
     </form>
   );
 }
