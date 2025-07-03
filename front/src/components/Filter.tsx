@@ -1,8 +1,8 @@
 import React, { useState, FormEvent } from "react";
 
 type FilterProps = {
-    onFilter: (search: string, statuses: string[]) => void;
-    onCancel: () => void;
+  onFilter: (search: string, statuses: string[]) => void;
+  onCancel: () => void;
 };
 
 function Filter({ onFilter, onCancel }: FilterProps) {
