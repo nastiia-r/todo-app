@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getTasks, deleteTask, updateTask } from "../service/toDoService.ts";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import AddTask from "../components/AddTask.tsx";
+import Filter from "../components/Filter.tsx";
 
 interface Task {
     id: number;
@@ -15,13 +16,26 @@ function TasksPage() {
     const queryClient = useQueryClient();
     const [editingTask, setEditingTask] = useState<number | null>(null);
     const [form, setForm] = useState({ title: "", description: "", status: "todo" });
+    const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
-
+    const filterTasks = (search: string, statuses: string[]) => {
+        const filtered = tasks.filter((task) => {
+            const matchesTitle = task.title.toLowerCase().includes(search.toLowerCase());
+            const matchesStatus = statuses.length === 0 || statuses.includes(task.status);
+            return matchesTitle && matchesStatus;
+        });
+        setFilteredTasks(filtered);
+    };
+    
     const { data: tasks = [], isLoading, isError, error } = useQuery({
         queryKey: ["tasks", token],
         queryFn: () => getTasks(token),
         enabled: Boolean(token),
     });
+
+    useEffect(() => {
+        setFilteredTasks(tasks);
+    }, [tasks]);
 
     const deleteMutation = useMutation({
         mutationFn: (id: number) => deleteTask(id, token),
@@ -71,9 +85,11 @@ function TasksPage() {
     return (
         <div>
             <h1>Tasks Page</h1>
-            {tasks.length === 0 && <p>No tasks found</p>}
+            <Filter onFilter={filterTasks} onCancel={() => setFilteredTasks(tasks)} />
+
+            {filteredTasks.length === 0 && <p>No tasks found</p>}
             <ul>
-                {tasks.map((task) => (
+                {filteredTasks.map((task) => (
                     <li key={task.id}>
                         {editingTask === task.id ? (
                             <form onSubmit={handleUpdate}>
@@ -102,6 +118,7 @@ function TasksPage() {
                 ))}
             </ul>
             <AddTask />
+
         </div>
     );
 }
