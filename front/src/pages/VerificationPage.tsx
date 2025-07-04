@@ -19,7 +19,7 @@ export default function VerificationPage() {
         window.location.href = "/tasks"; 
       } else {
         data = await register(form.username, form.email, form.password);
-        setIsLogin(true);
+        window.location.href = "/tasks"; 
         setForm({ username: "", email: "", password: "" });
       }
     } catch (err) {

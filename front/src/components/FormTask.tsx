@@ -5,7 +5,7 @@ interface TaskFormProps {
     initialData: { title: string; description: string; status: string };
     onSubmit: (form: { title: string; description: string; status: string }) => void;
     onCancel: () => void;
-    title?: string; // заголовок форми, наприклад: "Add Task" або "Edit Task"
+    title?: string; 
 }
 
 function TaskForm({ initialData, onSubmit, onCancel, title = "Task Form" }: TaskFormProps) {
